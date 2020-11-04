@@ -4,16 +4,11 @@ Generate hashes from objects and values in node and the browser.  Uses node.js
 crypto module for hashing.  Supports SHA1 and many others (depending on the platform)
 as well as custom streams (e.g. CRC32).
 
-[![NPM](https://nodei.co/npm/object-hash.png?downloads=true&downloadRank=true)](https://www.npmjs.com/package/object-hash)
-
-[![Travis CI](https://secure.travis-ci.org/puleos/object-hash.png?branch=master)](https://secure.travis-ci.org/puleos/object-hash?branch=master)
-[![Coverage Status](https://coveralls.io/repos/puleos/object-hash/badge.svg?branch=master&service=github)](https://coveralls.io/github/puleos/object-hash?branch=master)
-
 * Hash values of any type.
 * Supports a keys only option for grouping similar objects with different values.
 
-```js
-import hash from "https://deno.land/x/object_hash@2.0.3/mod.ts";
+```typescript
+import hash from "https://deno.land/x/object_hash@2.0.3.1/mod.ts";
 
 hash({foo: 'bar'}) // => '67b69634f9880a282c14a0f0cb7ba20cf5d677e9'
 hash([1, 2, 2.718, 3.14159]) // => '136b9b88375971dff9f1af09d7356e3e04281951'
@@ -80,27 +75,9 @@ hash.writeToStream({foo: 'bar', a: 42}, {respectType: false}, process.stdout)
 // => e.g. 'object:a:number:42foo:string:bar'
 ```
 
-## Installation
-
-node:
-```js
-npm install object-hash
-```
-
-browser: */dist/object_hash.js*
-```
-<script src="object_hash.js" type="text/javascript"></script>
-
-<script>
-  var hash = objectHash.sha1({foo:'bar'});
-
-  console.log(hash); // e003c89cdf35cdf46d8239b4692436364b7259f9
-</script>
-```
-
 ## Example usage
 ```typescript
-import hash from "https://deno.land/x/object_hash@2.0.3/index.ts";
+import hash from "https://deno.land/x/object_hash@2.0.3.1/mod.ts";
 
 var peter = {name: 'Peter', stapler: false, friends: ['Joanna', 'Michael', 'Samir'] };
 var michael = {name: 'Michael', stapler: false, friends: ['Peter', 'Samir'] };
