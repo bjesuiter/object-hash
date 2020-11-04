@@ -1,4 +1,4 @@
-# object-hash
+# Deno-compatible version of [object-hash](https://github.com/puleos/object-hash)
 
 Generate hashes from objects and values in node and the browser.  Uses node.js
 crypto module for hashing.  Supports SHA1 and many others (depending on the platform)
@@ -13,7 +13,7 @@ as well as custom streams (e.g. CRC32).
 * Supports a keys only option for grouping similar objects with different values.
 
 ```js
-var hash = require('object-hash');
+import hash from "https://deno.land/x/object_hash@2.0.3/mod.ts";
 
 hash({foo: 'bar'}) // => '67b69634f9880a282c14a0f0cb7ba20cf5d677e9'
 hash([1, 2, 2.718, 3.14159]) // => '136b9b88375971dff9f1af09d7356e3e04281951'
@@ -99,8 +99,8 @@ browser: */dist/object_hash.js*
 ```
 
 ## Example usage
-```js
-var hash = require('object-hash');
+```typescript
+import hash from "https://deno.land/x/object_hash@2.0.3/index.ts";
 
 var peter = {name: 'Peter', stapler: false, friends: ['Joanna', 'Michael', 'Samir'] };
 var michael = {name: 'Michael', stapler: false, friends: ['Peter', 'Samir'] };
@@ -148,36 +148,3 @@ hash(michael, { algorithm: 'md5', encoding: 'base64' });
 hash(bob, { algorithm: 'md5', encoding: 'base64' });
 // lFzkw/IJ8/12jZI0rQeS3w==
 ```
-
-## Legacy Browser Support
-IE <= 8 and Opera <= 11 support dropped in version 0.3.0.  If you require
-legacy browser support you must either use an ES5 shim or use version 0.2.5
-of this module.
-
-## Development
-
-```
-git clone https://github.com/puleos/object-hash
-```
-
-## Node Docker Wrapper
-
-If you want to stand this up in a docker container, you should take at look
-at the [![node-object-hash](https://github.com/bean5/node-object-hash)](https://github.com/bean5/node-object-hash) project.
-
-### gulp tasks
-* `gulp watch` (default) watch files, test and lint on change/add
-* `gulp test` unit tests
-* `gulp karma` browser unit tests
-* `gulp lint` jshint
-* `gulp dist` create browser version in /dist
-
-## License
-MIT
-
-## Changelog
-
-### v2.0.0
-
-Only Node.js versions `>= 6.0.0` are being tested in CI now.
-No other breaking changes were introduced.

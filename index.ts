@@ -1,6 +1,6 @@
-'use strict';
+// @ts-nocheck
+import { createHash } from "https://deno.land/std@0.76.0/hash/mod.ts";
 
-var crypto = require('crypto');
 
 /**
  * Exported function
@@ -25,13 +25,13 @@ var crypto = require('crypto');
  * @return {string} hash value
  * @api public
  */
-exports = module.exports = objectHash;
-
-function objectHash(object, options){
+function objectHash(object, options?){
   options = applyDefaults(object, options);
 
   return hash(object, options);
 }
+const exports = objectHash;
+export default exports;
 
 /**
  * Exported sugar methods
@@ -54,7 +54,7 @@ exports.keysMD5 = function(object){
 };
 
 // Internals
-var hashes = crypto.getHashes ? crypto.getHashes().slice() : ['sha1', 'md5'];
+var hashes = ['sha1', 'md5'];
 hashes.push('passthrough');
 var encodings = ['buffer', 'hex', 'binary', 'base64'];
 
@@ -117,7 +117,7 @@ function hash(object, options) {
   var hashingStream;
 
   if (options.algorithm !== 'passthrough') {
-    hashingStream = crypto.createHash(options.algorithm);
+    hashingStream = createHash(options.algorithm);
   } else {
     hashingStream = new PassThrough();
   }
@@ -133,16 +133,15 @@ function hash(object, options) {
     hashingStream.end('');
   }
 
-  if (hashingStream.digest) {
-    return hashingStream.digest(options.encoding === 'buffer' ? undefined : options.encoding);
+  switch (options.encoding) {
+    case 'buffer':
+      return hashingStream.digest();
+    case 'hex':
+    case 'base64':
+      return hashingStream.toString(options.encoding);
+    default:
+      throw new Error('Encoding not supported in deno: ' + options.encoding)
   }
-
-  var buf = hashingStream.read();
-  if (options.encoding === 'buffer') {
-    return buf;
-  }
-
-  return buf.toString(options.encoding);
 }
 
 /**
